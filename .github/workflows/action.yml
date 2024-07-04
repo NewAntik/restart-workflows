@@ -1,0 +1,17 @@
+name: Action One
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        default: 'dev'
+
+jobs:
+  dummy_job_one:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Print Environment from Action One
+          run: echo "Running Action One in ${{ inputs.environment }}"
+
