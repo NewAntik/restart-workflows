@@ -11,7 +11,5 @@ runs:
   using: 'composite'
   steps:
     - name: Print Environment from Action One
-      shell: "i dont know"
+      shell: bash
       run: echo "Running Action One in ${{ inputs.environment }}"
-
-
