@@ -11,5 +11,5 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Print Environment from Action One
-          run: echo "Running Action One in${{ secrets.env }}"
+          run: echo "Running Action One in${{ env }}"
 
