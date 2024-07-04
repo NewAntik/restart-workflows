@@ -2,8 +2,22 @@ name: Dummy
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run the actions (dev, dev2, prod)'
+        required: true
+        default: 'dev'
 
 jobs:
+  dummy_job_one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variable
+        run: echo "ENVIRONMENT=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+
+      - name: Print Environment
+        run: echo "Running Action One in ${{ inputs.environment }}"
+
   start_orchestrator:
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +28,7 @@ jobs:
         id: action_one
         uses: ./.github/actions/one
         with:
-          environment: 'dev2'
+          environment: ${{ env.ENVIRONMENT }}
 
 #      - name: Trigger Action One
 #        run: |
