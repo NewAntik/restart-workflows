@@ -13,6 +13,8 @@ jobs:
       - name: Trigger Action One
         id: action_one
         uses: ./.github/actions/one
+        with:
+          environment: dev2
 
 #      - name: Trigger Action One
 #        run: |

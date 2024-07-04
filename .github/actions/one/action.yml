@@ -2,7 +2,11 @@ name: Action One
 
 on:
   workflow_call:
-
+    inputs:
+      environment:
+        description: 'The environment to run the action in'
+        required: true
+        type: string
 jobs:
   dummy_job_one:
     runs-on: ubuntu-latest
