@@ -12,12 +12,13 @@ on:
       using: "composite"
       steps:
         - name: Print Environment from Action One
-          run: echo "Running Action One in ${{ inputs.environment }}"
+          run: echo "Running Action One in "
 
 jobs:
   dummy_job_one:
+
       runs-on: ubuntu-latest
       steps:
         - name: Print Environment from Action One
-          run: echo "Running Action One in ${{ inputs.environment }}"
+          run: echo "Running Action One in"
 
