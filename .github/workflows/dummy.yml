@@ -12,7 +12,7 @@ jobs:
 
       - name: Trigger Action One
         id: action_one
-        uses: ./.github/workflows/action-one.yaml
+        uses: ./.github/workflows/action-one.yaml@master
 
 #      - name: Trigger Action One
 #        run: |
