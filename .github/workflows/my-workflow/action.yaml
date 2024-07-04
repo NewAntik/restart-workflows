@@ -1,14 +1,17 @@
-on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment'
-        required: true
-        type: string
+name: Action One
 
-jobs:
-  dummy_job_one:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Environment from Action One
-        run: echo "Running Workflow One "
+description: "Simple work for first action"
+
+inputs:
+  environment:
+    description: "The environment."
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Print Environment from Action One
+      shell: "i dont know"
+      run: echo "Running Action One in ${{ inputs.environment }}"
+
+
