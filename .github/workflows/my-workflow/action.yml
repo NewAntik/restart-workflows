@@ -2,7 +2,7 @@ name: Action One
 description: 'composite run action'
 
 runs:
-  using: "conposite"
+  using: "docker"
   steps:
     - name: Echo
       shell: bash
