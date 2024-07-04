@@ -12,11 +12,8 @@ jobs:
   dummy_job_one:
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment variable
-        run: echo "ENVIRONMENT=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
-
       - name: Print Environment
-        run: echo "Running Action One in ${{ inputs.environment }}"
+        run: echo "Running Actions in ${{ github.event.inputs.environment }}"
 
   start_orchestrator:
     runs-on: ubuntu-latest
@@ -27,8 +24,8 @@ jobs:
       - name: Trigger Action One
         id: action_one
         uses: ./.github/workflows/my-workflow
-#        with:
-#          secrets: ${{ env.ENVIRONMENT }}
+        with:
+          environment: ${{ github.event.inputs.environment }}
 
 #      - name: Trigger Action One
 #        run: |
