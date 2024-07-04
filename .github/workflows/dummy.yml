@@ -28,7 +28,7 @@ jobs:
         id: action_one
         uses: ./.github/workflows/my-workflow
         with:
-          environment: ${{ env.ENVIRONMENT }}
+          secrets: ${{ env.ENVIRONMENT }}
 
 #      - name: Trigger Action One
 #        run: |
