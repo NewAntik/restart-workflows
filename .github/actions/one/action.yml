@@ -4,21 +4,13 @@ on:
   workflow_call:
     inputs:
       environment:
-        description: 'The environment to run the action in'
         required: true
         type: string
 
-    runs:
-      using: "composite"
-      steps:
-        - name: Print Environment from Action One
-          run: echo "Running Action One in "
-
 jobs:
   dummy_job_one:
-
       runs-on: ubuntu-latest
       steps:
         - name: Print Environment from Action One
-          run: echo "Running Action One in"
+          run: echo "Running Action One in ${{ github.event.inputs.environment }}"
 
