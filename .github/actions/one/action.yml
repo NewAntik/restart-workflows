@@ -2,16 +2,22 @@ name: Action One
 
 on:
   workflow_call:
-#    inputs:
-#      environment:
-#        description: 'The environment to run the action in'
-#        required: true
-#        type: string
+    inputs:
+      environment:
+        description: 'The environment to run the action in'
+        required: true
+        type: string
+
+    runs:
+      using: "composite"
+      steps:
+        - name: Print Environment from Action One
+          run: echo "Running Action One in ${{ inputs.environment }}"
+
 jobs:
   dummy_job_one:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Environment from Action One
-#        run: echo "Running Action One in ${{ inputs.environment }}"
-        run: echo "Running Action One WITHOUT environment"
+      runs-on: ubuntu-latest
+      steps:
+        - name: Print Environment from Action One
+          run: echo "Running Action One in ${{ inputs.environment }}"
 
