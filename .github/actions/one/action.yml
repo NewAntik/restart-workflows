@@ -13,5 +13,5 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Print Environment from Action One
-          run: echo "Running Action One in ${{ github.event.inputs.environment }}"
+          run: echo "Running Action One in ${{ inputs.environment }}"
 
