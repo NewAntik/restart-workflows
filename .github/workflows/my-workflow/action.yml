@@ -2,14 +2,15 @@ name: Action One
 
 on:
   workflow_call:
-    secrets:
+    inputs:
       env:
+        description: 'Environment'
         required: true
+        type: string
 
 jobs:
   dummy_job_one:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Print Environment from Action One
-          run: echo "Running Action One in${{ env }}"
-
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Environment from Action One
+        run: echo "Running Action One in ${{ inputs.env }}"
