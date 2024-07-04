@@ -1,12 +1,13 @@
 name: Action One
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       environment:
         description: 'Environment to run the actions (dev, dev2, prod)'
         required: true
         default: 'dev'
+        type: string
 
 jobs:
   dummy_job_one:
