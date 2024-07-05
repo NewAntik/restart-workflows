@@ -25,7 +25,7 @@ jobs:
         id: backend
         uses: ./.github/workflows/restart-backand
         with:
-          environment: ${{ env.ENVIRONMENT }}
+          environment: ${{ github.event.inputs.environment }}
 
   restart_admin:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
         id: admin
         uses: ./.github/workflows/restart-admin
         with:
-          environment: ${{ env.ENVIRONMENT }}
+          environment: ${{ github.event.inputs.environment }}
 
   restart_frontend:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         id: admin
         uses: ./.github/workflows/restart-admin
         with:
-          environment: ${{ env.ENVIRONMENT }}
+          environment: ${{ github.event.inputs.environment }}
 
 #jobs:
 #  dummy_job_one:
