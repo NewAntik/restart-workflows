@@ -9,70 +9,37 @@ on:
         default: 'dev'
 
 jobs:
-  start_orchestrator:
+  orchestrator:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Print environment variable
         run: echo "Current environment:${{ github.event.inputs.environment }}"
 
-  restart_backend:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Trigger Restart Backend
-        id: backend
+      - name: Restart Backend
+        id: restart_backend
         uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
-  restart_admin:
-    runs-on: ubuntu-latest
-    needs: restart_backend
-    if: ${{ success() }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Restart admin
-        id: admin
+      - name: Restart Admin
+        id: restart_admin
+        if: ${{ steps.restart_backend.outcome == 'success' }}
         uses: ./.github/workflows/restart-admin
         with:
           environment: ${{ github.event.inputs.environment }}
 
-  restart_frontend:
-    runs-on: ubuntu-latest
-    needs: restart_admin
-    if: ${{ success() }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Restart frontend
-        id: admin
+      - name: Restart Frontend
+        id: restart_frontend
+        if: ${{ steps.restart_admin.outcome == 'success' }}
         uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
 
-#jobs:
-#  dummy_job_one:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Print Environment
-#        run: echo "Running Actions in ${{ github.event.inputs.environment }}"
-#
-#  start_orchestrator:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v4
-#
-#      - name: Trigger Action One
-#        id: action_one
-#        uses: ./.github/workflows/my-workflow
-#        with:
-#          environment: ${{ github.event.inputs.environment }}
+
 
 #      - name: Trigger Action One
 #        run: |
