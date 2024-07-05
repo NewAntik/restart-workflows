@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to run the actions (dev, dev2, prod)'
+        description: 'Environment(dev, dev2, prod)'
         required: true
         default: 'dev'
 
@@ -23,7 +23,7 @@ jobs:
 
       - name: Trigger Restart Backend
         id: backend
-        uses: ./.github/workflows/restart-backand
+        uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
