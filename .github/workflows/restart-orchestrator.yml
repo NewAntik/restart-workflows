@@ -1,4 +1,4 @@
-name: Dummy
+name: Restart Orchestrator
 
 on:
   workflow_dispatch:
