@@ -1,0 +1,15 @@
+name: Restart Admin
+
+description: "Here is restart logic for Admin frontend side."
+
+inputs:
+  environment:
+    description: "Input environment."
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Print Environment From Restart Admin
+      shell: bash
+      run: echo "Running Action One in ${{ inputs.environment }}"

@@ -1,0 +1,83 @@
+name: Dummy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run the actions (dev, dev2, prod)'
+        required: true
+        default: 'dev'
+
+jobs:
+  start_orchestrator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print environment variable
+        run: echo "Current environment:{{ github.event.inputs.environment }}"
+
+  restart_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Trigger Restart Backend
+        id: backend
+        uses: ./.github/workflows/restart-backand
+        with:
+          environment: ${{ env.ENVIRONMENT }}
+
+  restart_admin:
+    runs-on: ubuntu-latest
+    needs: restart_backend
+    if: ${{ success() }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restart admin
+        id: admin
+        uses: ./.github/workflows/restart-admin
+        with:
+          environment: ${{ env.ENVIRONMENT }}
+
+  restart_frontend:
+    runs-on: ubuntu-latest
+    needs: restart_frontend
+    if: ${{ success() }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restart frontend
+        id: admin
+        uses: ./.github/workflows/restart-admin
+        with:
+          environment: ${{ env.ENVIRONMENT }}
+
+#jobs:
+#  dummy_job_one:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Print Environment
+#        run: echo "Running Actions in ${{ github.event.inputs.environment }}"
+#
+#  start_orchestrator:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: Trigger Action One
+#        id: action_one
+#        uses: ./.github/workflows/my-workflow
+#        with:
+#          environment: ${{ github.event.inputs.environment }}
+
+#      - name: Trigger Action One
+#        run: |
+#          curl -X POST \
+#            -H "Accept: application/vnd.github.v3+json" \
+#            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+#            https://api.github.com/repos/${{ github.repository }}/actions/workflows/action-one.yml/dispatches \
+#            -d '{"ref":"master"}'
