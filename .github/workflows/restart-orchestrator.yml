@@ -51,7 +51,7 @@ jobs:
 
       - name: Restart frontend
         id: admin
-        uses: ./.github/workflows/restart-admin
+        uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
 
