@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print environment variable
-        run: echo "Current environment:{{ github.event.inputs.environment }}"
+        run: echo "Current environment:" {{ github.event.inputs.environment }}
 
   restart_backend:
     runs-on: ubuntu-latest
