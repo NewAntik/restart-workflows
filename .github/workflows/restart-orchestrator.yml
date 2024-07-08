@@ -3,8 +3,8 @@ name: Restart Orchestrator
 on:
   workflow_dispatch:
     inputs:
-      side:
-        description: 'Choose one side or all.(all, back, admin, front).'
+      workflow:
+        description: 'Choose one workflow or all.(all, back, admin, front).'
         required: true
         default: 'all'
       environment:
@@ -17,29 +17,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Print environment variable
-        run: echo "Current environment:${{ github.event.inputs.environment }}"
+      - name: Print input variables
+        run: |
+          echo "Current environment:${{ github.event.inputs.environment }}"
+          echo "Current workflow:${{ github.event.inputs.workflow }}"
 
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Restart Backend
         id: restart_backend
-        if: ${{ github.event.inputs.side == 'back' || github.event.inputs.side == 'all'}}
+        if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
         uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Admin
         id: restart_admin
-        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.side == 'all' || github.event.inputs.side == 'admin'}}
+        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
         uses: ./.github/workflows/restart-admin
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Frontend
         id: restart_frontend
-        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.side == 'all' || github.event.inputs.side == 'front'}}
+        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
         uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
