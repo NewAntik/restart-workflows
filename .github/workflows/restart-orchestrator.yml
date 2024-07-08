@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       side:
-        description: 'Choose one side or all (back, admin, front).'
+        description: 'Choose one side or all.(all, back, admin, front).'
         required: true
-        default: ''
+        default: 'all'
       environment:
         description: 'Environment(dev, dev2, prod)'
         required: true
@@ -25,21 +25,21 @@ jobs:
 
       - name: Restart Backend
         id: restart_backend
-        if: ${{ github.event.inputs.side == 'back' || github.event.inputs.side == ''}}
+        if: ${{ github.event.inputs.side == 'back' || github.event.inputs.side == 'all'}}
         uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Admin
         id: restart_admin
-        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.side == '' || github.event.inputs.side == 'admin'}}
+        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.side == 'all' || github.event.inputs.side == 'admin'}}
         uses: ./.github/workflows/restart-admin
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Frontend
         id: restart_frontend
-        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.side == '' || github.event.inputs.side == 'front'}}
+        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.side == 'all' || github.event.inputs.side == 'front'}}
         uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
