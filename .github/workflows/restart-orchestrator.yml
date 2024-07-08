@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       workflow:
-        description: 'Choose one workflow or all.(all, back, admin, front).'
+        description: 'Workflow(back, admin, front).'
         required: true
-        default: 'all'
+        default: ''
       environment:
         description: 'Environment(dev, dev2, prod)'
         required: true
@@ -27,21 +27,21 @@ jobs:
 
       - name: Restart Backend
         id: restart_backend
-        if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
+        if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == ''}}
         uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Admin
         id: restart_admin
-        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
+        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.workflow == '' || github.event.inputs.workflow == 'admin'}}
         uses: ./.github/workflows/restart-admin
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Frontend
         id: restart_frontend
-        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
+        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.workflow == '' || github.event.inputs.workflow == 'front'}}
         uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
