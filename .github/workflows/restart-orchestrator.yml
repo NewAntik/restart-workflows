@@ -3,6 +3,10 @@ name: Restart Orchestrator
 on:
   workflow_dispatch:
     inputs:
+      side:
+        description: 'Choose one side or all (back, admin, front).'
+        required: true
+        default: ''
       environment:
         description: 'Environment(dev, dev2, prod)'
         required: true
@@ -11,7 +15,7 @@ on:
 jobs:
   orchestrator:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - name: Print environment variable
         run: echo "Current environment:${{ github.event.inputs.environment }}"
@@ -21,30 +25,21 @@ jobs:
 
       - name: Restart Backend
         id: restart_backend
+        if: ${{ github.event.inputs.side == 'back' || github.event.inputs.side == ''}}
         uses: ./.github/workflows/restart-backend
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Admin
         id: restart_admin
-        if: ${{ steps.restart_backend.outcome == 'success' }}
+        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.side == '' || github.event.inputs.side == 'admin'}}
         uses: ./.github/workflows/restart-admin
         with:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Restart Frontend
         id: restart_frontend
-        if: ${{ steps.restart_admin.outcome == 'success' }}
+        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.side == '' || github.event.inputs.side == 'front'}}
         uses: ./.github/workflows/restart-frontend
         with:
           environment: ${{ github.event.inputs.environment }}
-
-
-
-#      - name: Trigger Action One
-#        run: |
-#          curl -X POST \
-#            -H "Accept: application/vnd.github.v3+json" \
-#            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-#            https://api.github.com/repos/${{ github.repository }}/actions/workflows/action-one.yml/dispatches \
-#            -d '{"ref":"master"}'
