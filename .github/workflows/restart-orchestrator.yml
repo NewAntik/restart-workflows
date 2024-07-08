@@ -20,7 +20,6 @@ on:
         options:
           - dev
           - dev2
-          - front
           - prod
         default: 'dev'
         type: choice
