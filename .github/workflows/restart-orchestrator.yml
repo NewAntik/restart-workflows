@@ -7,6 +7,7 @@ on:
         description: 'Workflow.'
         required: true
         options:
+          - all
           - back
           - admin
           - front
@@ -14,9 +15,15 @@ on:
         type: choice
 
       environment:
-        description: 'Environment(dev, dev2, prod)'
+        description: 'Environment.'
         required: true
+        options:
+          - dev
+          - dev2
+          - front
+          - prod
         default: 'dev'
+        type: choice
 
 jobs:
   orchestrator:
