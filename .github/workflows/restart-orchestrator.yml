@@ -11,6 +11,7 @@ on:
           - admin
           - front
         default: 'all'
+        type: choice
 
       environment:
         description: 'Environment(dev, dev2, prod)'
