@@ -4,9 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       workflow:
-        description: 'Workflow(back, admin, front).'
+        description: 'Workflow.'
         required: true
-        default: ''
+        options:
+          - back
+          - admin
+          - front
+        default: 'all'
+
       environment:
         description: 'Environment(dev, dev2, prod)'
         required: true
