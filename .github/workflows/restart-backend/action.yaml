@@ -2,14 +2,17 @@ name: Restart Backend
 
 description: "Here is restart logic for Backend side."
 
-inputs:
-  environment:
-    description: "Input environment."
-    required: true
+#inputs:
+#  environment:
+#    description: "Input environment."
+#    required: true
 
 runs:
   using: 'composite'
   steps:
     - name: Print Environment From Restart Backend
       shell: bash
-      run: echo "Running Action One in ${{ inputs.environment }}"
+      run: |
+        echo "Running Action One in ${{ github.event.inputs.environment }}"
+        echo "Current workflow:${{ github.event.inputs.workflow }}"
+
