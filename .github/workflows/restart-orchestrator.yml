@@ -27,7 +27,7 @@ on:
 jobs:
   restart_backend:
     if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
-    uses: NewAntik/restart-workflows/.github/workflows/restart-backend.yml@main
+    uses: ./.github/workflows/restart-backend.yml@main
     secrets: inherit
 
   restart_admin:
