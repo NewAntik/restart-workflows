@@ -27,17 +27,17 @@ on:
 jobs:
   restart_backend:
     if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
-    uses: NewAntik/restart-workflows/.github/workflows/restart-backend.yml@main
+    uses: NewAntik/restart-workflows/.github/workflows/restart/restart-backend.yml@main
     secrets: inherit
 
   restart_admin:
     needs: restart_backend
     if: ${{ success() && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
-    uses: NewAntik/restart-workflows/.github/workflows/restart-admin.yml@main
+    uses: NewAntik/restart-workflows/.github/workflows/restart/restart-admin.yml@main
     secrets: inherit
 
   restart_frontend:
     needs: restart_admin
     if: ${{ success() && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
-    uses: NewAntik/restart-workflows/.github/workflows/restart-frontend.yml@main
+    uses: NewAntik/restart-workflows/.github/workflows/restart/restart-frontend.yml@main
     secrets: inherit
