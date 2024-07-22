@@ -37,11 +37,11 @@ jobs:
     uses: NewAntik/restart-workflows/.github/workflows/restart-backend/action.yml@main
     secrets: inherit
 
-  restart_admin:
-    needs: restart_backend
-    if: ${{ success() }}
-    uses: NewAntik/restart-workflows/.github/workflows/restart-admin/action.yml@main
-    secrets: inherit
+#  restart_admin:
+#    needs: restart_backend
+#    if: ${{ success() }}
+#    uses: NewAntik/restart-workflows/.github/workflows/restart-admin/action.yml@main
+#    secrets: inherit
 
 #  orchestrator:
 #    runs-on: ubuntu-latest
