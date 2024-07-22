@@ -44,9 +44,7 @@ jobs:
         with:
           secrets: inherit
           variables: inherit
-        run: |
-          echo "This is variable: ${{ vars.TEST_VAR }}"
-
+          context: inherit
 
       - name: Restart Admin
         id: restart_admin
