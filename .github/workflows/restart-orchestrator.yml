@@ -44,6 +44,8 @@ jobs:
         with:
           secrets: inherit
           variables: inherit
+        run: |
+          echo "print variable: ${{ env.TEST_VAR }}"
 
       - name: Restart Admin
         id: restart_admin

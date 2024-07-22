@@ -9,5 +9,4 @@ runs:
       shell: bash
       run: |
         echo "This is variable: ${{ env.TEST_VAR }}"
-#        echo "This is secret: ${{ secrets.TEST_SECRET }}"
-
+        echo "This is secret: ${{ secrets.TEST_SECRET }}"
