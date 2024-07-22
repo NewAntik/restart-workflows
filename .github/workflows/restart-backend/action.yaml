@@ -8,5 +8,5 @@ runs:
     - name: Print Environment From Restart Backend
       shell: bash
       run: |
-        echo "This is variable: ${{ env.TEST_VAR }}"
+        echo "This is variable: ${{ vars.TEST_VAR  }}"
         echo "This is secret: ${{ secrets.TEST_SECRET }}"
