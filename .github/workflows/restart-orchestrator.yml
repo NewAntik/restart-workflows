@@ -25,45 +25,63 @@ on:
         type: choice
 
 jobs:
-  orchestrator:
+  start_orchestrator:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
-      - name: Print input variables
-        run: |
-          echo "Current environment:${{ github.event.inputs.environment }}"
-          echo "Current workflow:${{ github.event.inputs.workflow }}"
+      - name: Set environment variable
+        run: echo "env= ${{ github.event.inputs.environment }}"
 
-      - name: Checkout code
+  trigger_action_one:
+    runs-on: ubuntu-latest
+    needs: start_orchestrator
+    if: ${{ success() }}
+    steps:
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Print env, vars and secret
-        run: |
-          echo "This is env: ${{ env.TEST_ENV }}"
-          echo "This is env: ${{ env.TEST_ENV }}"
-          echo "This is vars: ${{ vars.TEST_VAR }}"
-          echo "This is secret: ${{ secrets.TEST_SECRET }}"
-
       - name: Restart Backend
-        id: restart_backend
-        if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
+        id: restart_back
         uses: ./.github/workflows/restart-backend
         with:
           secrets: inherit
           variables: inherit
-
-      - name: Restart Admin
-        id: restart_admin
-        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
-        uses: ./.github/workflows/restart-admin
-        with:
-          secrets: inherit
-          variables: inherit
-
-      - name: Restart Frontend
-        id: restart_frontend
-        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
-        uses: ./.github/workflows/restart-frontend
-        with:
-          secrets: inherit
-          variables: inherit
+#  orchestrator:
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 15
+#    steps:
+#      - name: Print input variables
+#        run: |
+#          echo "Current environment:${{ github.event.inputs.environment }}"
+#          echo "Current workflow:${{ github.event.inputs.workflow }}"
+#
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Print vars. and secrets.
+#        run: |
+#          echo "This is vars: ${{ vars.TEST_VAR }}"
+#          echo "This is secret: ${{ secrets.TEST_SECRET }}"
+#
+#      - name: Restart Backend
+#        id: restart_backend
+#        if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
+#        uses: ./.github/workflows/restart-backend
+#        with:
+#          secrets: inherit
+#          variables: inherit
+#
+#      - name: Restart Admin
+#        id: restart_admin
+#        if: ${{ steps.restart_backend.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
+#        uses: ./.github/workflows/restart-admin
+#        with:
+#          secrets: inherit
+#          variables: inherit
+#
+#      - name: Restart Frontend
+#        id: restart_frontend
+#        if: ${{ steps.restart_admin.outcome == 'success' && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
+#        uses: ./.github/workflows/restart-frontend
+#        with:
+#          secrets: inherit
+#          variables: inherit
