@@ -1,8 +1,10 @@
 name: Restart Admin
 
 on:
-  workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      workflow:
+        type: string
 jobs:
   restart-admin:
     runs-on: ubuntu-latest
