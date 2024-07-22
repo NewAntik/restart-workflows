@@ -1,7 +1,7 @@
 name: Restart Admin
 
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   restart-admin:
