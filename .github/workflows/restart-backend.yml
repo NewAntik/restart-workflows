@@ -1,0 +1,13 @@
+name: Restart Backend in main package
+
+on:
+  workflow_call:
+
+jobs:
+  call_restart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print vars and secrets
+        run: |
+          echo "This is variable: ${{ vars.TEST_VAR  }}"
+          echo "This is secret: ${{ secrets.TEST_SECRET }}"

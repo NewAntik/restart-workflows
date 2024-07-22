@@ -31,20 +31,12 @@ jobs:
       - name: Set environment variable
         run: echo "env= ${{ github.event.inputs.environment }}"
 
-  trigger_action_one:
-    runs-on: ubuntu-latest
+  restart_backend:
     needs: start_orchestrator
     if: ${{ success() }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    uses: NewAntik/restart-workflows/.github/workflows/restart-backend.yml@main
+    secrets: inherit
 
-      - name: Restart Backend
-        id: restart_back
-        uses: ./.github/workflows/restart-backend
-        with:
-          secrets: inherit
-          variables: inherit
 #  orchestrator:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 15
