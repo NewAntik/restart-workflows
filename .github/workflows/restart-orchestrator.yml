@@ -37,9 +37,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Print var
+      - name: Print env, vars and secret
         run: |
-          echo "This is variable: ${{ env.TEST_VAR }}"
+          echo "This is env: ${{ env.TEST_ENV }}"
+          echo "This is vars: ${{ vars.TEST_VAR }}"
+          echo "This is secret: ${{ secrets.TEST_SECRET }}"
+
 
       - name: Restart Backend
         id: restart_backend
