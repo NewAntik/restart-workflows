@@ -1,10 +1,10 @@
-name: Restart Backend in main package
+name: Restart Admin in main package
 
 on:
   workflow_call:
 
 jobs:
-  restart-backend:
+  restart-admin:
     runs-on: ubuntu-latest
     steps:
       - name: Print vars and secrets
