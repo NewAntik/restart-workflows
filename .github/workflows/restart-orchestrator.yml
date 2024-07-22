@@ -37,6 +37,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Print var
+        run: |
+          echo "This is variable: ${{ env.TEST_VAR }}"
+
       - name: Restart Backend
         id: restart_backend
         if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
@@ -44,8 +48,6 @@ jobs:
         with:
           secrets: inherit
           variables: inherit
-        run: |
-          echo "This is variable: ${{ env.TEST_VAR }}"
 
       - name: Restart Admin
         id: restart_admin
