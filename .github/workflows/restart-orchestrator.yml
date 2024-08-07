@@ -23,6 +23,11 @@ on:
           - dev
           - dev2
           - prod
+          -
+  workflow_run:
+    workflows: [ "Deploy artifacts" ]
+    types:
+      - completed
 
 jobs:
   restart_backend:
