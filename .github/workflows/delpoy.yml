@@ -2,6 +2,27 @@ name: Deploy artifacts
 
 on:
   workflow_dispatch:
+    inputs:
+      workflow:
+        description: 'Workflow.'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - back
+          - admin
+          - front
+
+      environment:
+        description: 'Environment.'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - dev2
+          - prod
 
 jobs:
   deploy:
