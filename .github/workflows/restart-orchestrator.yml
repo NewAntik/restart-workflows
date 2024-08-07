@@ -6,23 +6,23 @@ on:
       workflow:
         description: 'Workflow.'
         required: true
+        default: 'all'
+        type: choice
         options:
           - all
           - back
           - admin
           - front
-        default: 'all'
-        type: choice
 
       environment:
         description: 'Environment.'
         required: true
+        default: 'dev'
+        type: choice
         options:
           - dev
           - dev2
           - prod
-        default: 'dev'
-        type: choice
 
 jobs:
   restart_backend:
