@@ -28,6 +28,16 @@ on:
     workflows: [ "Deploy artifacts" ]
     types:
       - completed
+    inputs:
+      workflow:
+        description: 'Workflow.'
+        required: true
+        default: 'all'
+
+      environment:
+        description: 'Environment.'
+        required: true
+        default: 'dev'
 
 jobs:
   restart_backend:

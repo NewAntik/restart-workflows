@@ -7,12 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    outputs:
-      environment: ${{ steps.set_output.outputs.environment }}
-      workflow: ${{ steps.set_output.outputs.workflow }}
     steps:
       - name: Dummy deploy data
-        id: set_output
         run: |
-          echo "::set-output name=environment::dev"
-          echo "::set-output name=workflow::all"
+          echo "Dummy deploy action"
