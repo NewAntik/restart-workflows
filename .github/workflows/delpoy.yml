@@ -2,33 +2,17 @@ name: Deploy artifacts
 
 on:
   workflow_dispatch:
-    inputs:
-      workflow:
-        description: 'Workflow.'
-        required: true
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - back
-          - admin
-          - front
-
-      environment:
-        description: 'Environment.'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - dev2
-          - prod
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    outputs:
+      environment: ${{ steps.set_output.outputs.environment }}
+      workflow: ${{ steps.set_output.outputs.workflow }}
     steps:
       - name: Dummy deploy data
+        id: set_output
         run: |
-          echo "Dummy deploy action"
+          echo "::set-output name=environment::dev"
+          echo "::set-output name=workflow::all"
