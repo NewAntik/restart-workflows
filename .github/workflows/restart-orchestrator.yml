@@ -25,6 +25,9 @@ on:
           - prod
 
   workflow_run:
+    workflows: [ "Deploy artifacts" ]
+    types:
+      - completed
     inputs:
       workflow:
         description: 'Workflow.'
