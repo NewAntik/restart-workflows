@@ -28,6 +28,13 @@ on:
     workflows: [ "Deploy artifacts" ]
     types:
       - completed
+    inputs:
+      workflow:
+        description: 'Workflow.'
+        default: 'all'
+      environment:
+        description: 'Environment.'
+        default: 'dev'
 
 jobs:
   print_inputs:
