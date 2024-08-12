@@ -24,17 +24,16 @@ on:
           - dev2
           - prod
 
-  workflow_run:
-    workflows: [ "Deploy artifacts" ]
-    types:
-      - completed
+  workflow_call:
     inputs:
       workflow:
-        description: 'Workflow.'
-        default: 'all'
+        description: 'Workflow'
+        required: true
+        type: 'string'
       environment:
-        description: 'Environment.'
-        default: 'dev'
+        description: 'Environment'
+        required: true
+        type: 'string'
 
 jobs:
   print_inputs:

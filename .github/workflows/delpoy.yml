@@ -11,3 +11,8 @@ jobs:
       - name: Dummy deploy data
         run: |
           echo "Dummy deploy action"
+  trigger_orchestrator:
+    uses: ./.github/workflows/callable_workflow.yml
+    with:
+      workflow: 'all'
+      environment: 'dev'
