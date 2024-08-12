@@ -31,15 +31,19 @@ on:
     inputs:
       workflow:
         description: 'Workflow.'
-        required: true
         default: 'all'
-
       environment:
         description: 'Environment.'
-        required: true
         default: 'dev'
 
 jobs:
+  print_inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "Current environment:${{ github.event.inputs.environment }}"
+          echo "Current workflow:${{ github.event.inputs.workflow }}"
   restart_backend:
     if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
