@@ -24,16 +24,28 @@ on:
           - dev2
           - prod
 
-  workflow_call:
+  workflow_run:
     inputs:
       workflow:
-        description: 'Workflow'
+        description: 'Workflow.'
         required: true
-        type: 'string'
+        default: 'all'
+
       environment:
-        description: 'Environment'
+        description: 'Environment.'
         required: true
-        type: 'string'
+        default: 'dev'
+
+#  workflow_call:
+#    inputs:
+#      workflow:
+#        description: 'Workflow'
+#        required: true
+#        type: 'string'
+#      environment:
+#        description: 'Environment'
+#        required: true
+#        type: 'string'
 
 jobs:
   print_inputs:
