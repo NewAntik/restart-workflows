@@ -44,7 +44,7 @@ jobs:
           echo "Current environment:${{ github.event.inputs.environment }}"
           echo "Current workflow:${{ github.event.inputs.workflow }}"
   restart_backend:
-    if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
+#    if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
     secrets: inherit
 
