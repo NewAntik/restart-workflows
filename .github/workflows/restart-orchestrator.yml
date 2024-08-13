@@ -24,20 +24,16 @@ on:
           - dev2
           - prod
 
-  workflow_run:
-    workflows: [ "Deploy artifacts" ]
-    types:
-      - completed
-#  workflow_call:
-#    inputs:
-#      workflow:
-#        description: 'Workflow'
-#        required: true
-#        type: 'string'
-#      environment:
-#        description: 'Environment'
-#        required: true
-#        type: 'string'
+  workflow_call:
+    inputs:
+      workflow:
+        description: 'Workflow'
+        required: true
+        type: 'string'
+      environment:
+        description: 'Environment'
+        required: true
+        type: 'string'
 
 jobs:
   print_inputs:
@@ -50,7 +46,6 @@ jobs:
           echo "Environment from Deploy output: ${{ github.event.workflow_run.outputs.environment }}"
           echo "Workflow from Deploy output: ${{ github.event.workflow_run.outputs.workflow }}"
           echo "Deployment environment: ${{ github.event.workflow_run.conclusion }}"
-
 
   restart_backend:
     if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}

@@ -12,19 +12,9 @@ jobs:
         run: |
           echo "Dummy deploy action"
 
-      - name: Output data
-        id: set_output
-        run: |
-          echo "environment=dev" >> $GITHUB_ENV
-          echo "workflow=all" >> $GITHUB_ENV
-          echo "environment=${{ env.environment }}" >> $GITHUB_ENV
-          echo "workflow=${{ env.workflow }}" >> $GITHUB_ENV
-    outputs:
-      environment: ${{ env.environment }}
-      workflow: ${{ env.workflow }}
-
-#  trigger_orchestrator:
-#    uses: ./.github/workflows/restart-orchestrator.yml
-#    with:
-#      workflow: 'all'
-#      environment: 'dev'
+  trigger_orchestrator:
+    needs: deploy
+    uses: ./.github/workflows/restart-orchestrator.yml
+    with:
+      workflow: 'all'
+      environment: 'dev'
