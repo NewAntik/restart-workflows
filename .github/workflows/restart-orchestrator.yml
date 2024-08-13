@@ -47,10 +47,11 @@ jobs:
   restart_backend:
     if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
-    secrets: inherit
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
+    secrets: inherit
+
 
   restart_admin:
     needs: restart_backend
