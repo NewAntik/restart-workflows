@@ -41,11 +41,8 @@ jobs:
     steps:
       - name: Print inputs
         run: |
-          echo "Current environment:${{ github.event.inputs.environment }}"
+          echo "Current environment:${{ inputs.environment }}"
           echo "Current workflow:${{ inputs.workflow }}"
-          echo "Environment from Deploy output: ${{ github.event.workflow_run.outputs.environment }}"
-          echo "Workflow from Deploy output: ${{ github.event.workflow_run.outputs.workflow }}"
-          echo "Deployment environment: ${{ github.event.workflow_run.conclusion }}"
 
   restart_backend:
     if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}
