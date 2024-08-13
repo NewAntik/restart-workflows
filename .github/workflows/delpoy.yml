@@ -19,6 +19,7 @@ jobs:
          echo "::set-output name=workflow::all"
     outputs:
       environment: ${{ steps.set_output.outputs.environment }}
+      workflow: ${{ steps.set_output.outputs.workflow }}
 
 #  trigger_orchestrator:
 #    uses: ./.github/workflows/restart-orchestrator.yml
