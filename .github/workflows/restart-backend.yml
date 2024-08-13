@@ -12,5 +12,5 @@ jobs:
         run: |
           echo "This is variable: ${{ vars.TEST_VAR  }}"
           echo "This is secret: ${{ secrets.TEST_SECRET }}"
-          echo "Current environment:${{ github.event.inputs.environment }}"
-          echo "Current workflow:${{ github.event.inputs.workflow }}"
+          echo "Current environment:${{ inputs.environment }}"
+          echo "Current workflow:${{ inputs.workflow }}"
