@@ -2,6 +2,15 @@ name: Restart Frontend
 
 on:
   workflow_call:
+    inputs:
+      workflow:
+        description: 'Workflow'
+        required: true
+        type: 'string'
+      environment:
+        description: 'Environment'
+        required: true
+        type: 'string'
 
 jobs:
   restart-frontend:
