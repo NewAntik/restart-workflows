@@ -11,8 +11,17 @@ jobs:
       - name: Dummy deploy data
         run: |
           echo "Dummy deploy action"
-  trigger_orchestrator:
-    uses: ./.github/workflows/restart-orchestrator.yml
-    with:
-      workflow: 'all'
-      environment: 'dev'
+
+      - name: Output data
+        id: set_output
+        run: | 
+         echo "::set-output name=environment::dev"
+         echo "::set-output name=workflow::all"
+    outputs:
+      environment: ${{ steps.set_output.outputs.environment }}
+
+#  trigger_orchestrator:
+#    uses: ./.github/workflows/restart-orchestrator.yml
+#    with:
+#      workflow: 'all'
+#      environment: 'dev'
