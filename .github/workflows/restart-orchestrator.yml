@@ -52,7 +52,6 @@ jobs:
       environment: ${{ inputs.workflow }}
     secrets: inherit
 
-
   restart_admin:
     needs: restart_backend
     if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'admin'}}
@@ -61,7 +60,6 @@ jobs:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
     secrets: inherit
-
 
   restart_frontend:
     needs: restart_admin

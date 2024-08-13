@@ -18,3 +18,4 @@ jobs:
     with:
       workflow: 'all'
       environment: 'dev'
+    secrets: inherit
