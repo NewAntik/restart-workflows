@@ -14,9 +14,9 @@ jobs:
 
       - name: Output data
         id: set_output
-        run: | 
-         echo "::set-output name=environment::dev"
-         echo "::set-output name=workflow::all"
+        run: |
+          echo "environment=dev" >> $GITHUB_ENV
+          echo "workflow=all" >> $GITHUB_ENV
     outputs:
       environment: ${{ steps.set_output.outputs.environment }}
       workflow: ${{ steps.set_output.outputs.workflow }}
