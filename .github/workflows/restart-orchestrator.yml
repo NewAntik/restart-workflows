@@ -24,31 +24,16 @@ on:
           - dev2
           - prod
 
-  workflow_run:
-    workflows: [ "Deploy artifacts" ]
-    types:
-      - completed
+  workflow_call:
     inputs:
       workflow:
-        description: 'Workflow.'
+        description: 'Workflow'
         required: true
-        default: 'all'
-
+        type: 'string'
       environment:
-        description: 'Environment.'
+        description: 'Environment'
         required: true
-        default: 'dev'
-
-#  workflow_call:
-#    inputs:
-#      workflow:
-#        description: 'Workflow'
-#        required: true
-#        type: 'string'
-#      environment:
-#        description: 'Environment'
-#        required: true
-#        type: 'string'
+        type: 'string'
 
 jobs:
   print_inputs:
@@ -59,18 +44,18 @@ jobs:
           echo "Current environment:${{ inputs.environment }}"
           echo "Current workflow:${{ inputs.workflow }}"
   restart_backend:
-    if: ${{ github.event.inputs.workflow == 'back' || github.event.inputs.workflow == 'all'}}
+    if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
     secrets: inherit
 
   restart_admin:
     needs: restart_backend
-    if: ${{ success() && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'admin'}}
+    if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'admin'}}
     uses: ./.github/workflows/restart-admin.yml
     secrets: inherit
 
   restart_frontend:
     needs: restart_admin
-    if: ${{ success() && github.event.inputs.workflow == 'all' || github.event.inputs.workflow == 'front'}}
+    if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'front'}}
     uses: ./.github/workflows/restart-frontend.yml
     secrets: inherit

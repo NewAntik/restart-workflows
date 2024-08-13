@@ -11,8 +11,8 @@ jobs:
       - name: Dummy deploy data
         run: |
           echo "Dummy deploy action"
-#  trigger_orchestrator:
-#    uses: ./.github/workflows/restart-orchestrator.yml
-#    with:
-#      workflow: 'all'
-#      environment: 'dev'
+  trigger_orchestrator:
+    uses: ./.github/workflows/restart-orchestrator.yml
+    with:
+      workflow: 'all'
+      environment: 'dev'
