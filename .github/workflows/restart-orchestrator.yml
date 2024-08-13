@@ -47,25 +47,16 @@ jobs:
   restart_backend:
     if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
-    with:
-      workflow: ${{ inputs.environment }}
-      environment: ${{ inputs.workflow }}
     secrets: inherit
 
   restart_admin:
     needs: restart_backend
     if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'admin'}}
     uses: ./.github/workflows/restart-admin.yml
-    with:
-      workflow: ${{ inputs.environment }}
-      environment: ${{ inputs.workflow }}
     secrets: inherit
 
   restart_frontend:
     needs: restart_admin
     if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'front'}}
     uses: ./.github/workflows/restart-frontend.yml
-    with:
-      workflow: ${{ inputs.environment }}
-      environment: ${{ inputs.workflow }}
     secrets: inherit
