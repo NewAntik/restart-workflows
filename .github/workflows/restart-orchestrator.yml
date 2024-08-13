@@ -50,7 +50,7 @@ jobs:
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
-      secrets: inherit
+    secrets: inherit
 
 
   restart_admin:
@@ -60,7 +60,7 @@ jobs:
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
-      secrets: inherit
+    secrets: inherit
 
 
   restart_frontend:
@@ -70,4 +70,4 @@ jobs:
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
-      secrets: inherit
+    secrets: inherit
