@@ -50,23 +50,24 @@ jobs:
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
-    secrets: inherit
+      secrets: inherit
 
 
   restart_admin:
     needs: restart_backend
     if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'admin'}}
     uses: ./.github/workflows/restart-admin.yml
-    secrets: inherit
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
+      secrets: inherit
+
 
   restart_frontend:
     needs: restart_admin
     if: ${{ success() && inputs.workflow == 'all' || inputs.workflow == 'front'}}
     uses: ./.github/workflows/restart-frontend.yml
-    secrets: inherit
     with:
       workflow: ${{ inputs.environment }}
       environment: ${{ inputs.workflow }}
+      secrets: inherit
