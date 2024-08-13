@@ -41,8 +41,8 @@ jobs:
     steps:
       - name: Print inputs
         run: |
-          echo "Current environment:${{ inputs.environment }}"
-          echo "Current workflow:${{ inputs.workflow }}"
+          echo "Current environment:${{ github.event.inputs.environment }}"
+          echo "Current workflow:${{ github.event.inputs.workflow }}"
   restart_backend:
     if: ${{ inputs.workflow == 'back' || inputs.workflow == 'all'}}
     uses: ./.github/workflows/restart-backend.yml
