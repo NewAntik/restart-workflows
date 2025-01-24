@@ -1,4 +1,4 @@
-name: Deploy Orchestrator
+name: Dummy Orchestrator
 
 on:
   push:
