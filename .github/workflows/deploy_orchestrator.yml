@@ -9,16 +9,15 @@ on:
     inputs:
       environment:
         description: 'Environment.'
-        required: true
-        default: 'dev'
+        required: false
+        default: 'prod'
         type: choice
         options:
-          - dev
           - prod
 
 jobs:
   deploy_to_dev:
-    if: github.event.inputs.environment == 'dev'
+    if: github.event.inputs.environment == ''
     uses: ./.github/workflows/deploy_to_dev.yml
     secrets: inherit
     with:
