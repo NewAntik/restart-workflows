@@ -1,4 +1,4 @@
-name: Deploy Orchestrator
+name: OldDeploy Orchestrator
 
 on:
   push:
@@ -17,16 +17,16 @@ on:
           - prod
 
 jobs:
-  deploy_to_dev:
+  old_deploy_to_dev:
     if: github.event.inputs.environment == 'dev'
-    uses: ./.github/workflows/deploy_to_dev.yml
+    uses: ./.github/workflows/old-deploy_to_dev.yml
     secrets: inherit
     with:
-      workflow: ${{ github.event.inputs.environment }}
+      environment: ${{ github.event.inputs.environment }}
 
-  deploy_to_prod:
+  old_deploy_to_prod:
     if: github.event.inputs.environment == 'prod'
-    uses: ./.github/workflows/deploy_to_prod.yml
+    uses: ./.github/workflows/old-deploy_to_prod.yml
     secrets: inherit
     with:
-      workflow: ${{ github.event.inputs.environment }}
+      environment: ${{ github.event.inputs.environment }}
