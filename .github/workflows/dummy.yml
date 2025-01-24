@@ -17,16 +17,8 @@ on:
           - prod
 
 jobs:
-  deploy_to_dev:
-    if: github.event.inputs.environment == 'dev'
-    uses: ./.github/workflows/deploy_to_dev.yml
-    secrets: inherit
-    with:
-      workflow: ${{ github.event.inputs.environment }}
-
-  deploy_to_prod:
-    if: github.event.inputs.environment == 'prod'
-    uses: ./.github/workflows/deploy_to_prod.yml
-    secrets: inherit
-    with:
-      workflow: ${{ github.event.inputs.environment }}
+  print-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Environment
+        run: echo "Running Print Environment  in:${{ inputs.environment }}"
