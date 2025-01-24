@@ -9,7 +9,7 @@ on:
         type: 'string'
 
 jobs:
-  deploy_to_dev:
+  deploy_to_prod:
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
