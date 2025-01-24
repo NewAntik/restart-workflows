@@ -9,7 +9,7 @@ on:
     inputs:
       environment:
         description: 'Environment.'
-        required: true
+        required: false
         default: 'dev'
         type: choice
         options:
