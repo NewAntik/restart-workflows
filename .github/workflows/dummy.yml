@@ -1,0 +1,24 @@
+name: Deploy Orchestrator
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your main branch name if different.
+
+  workflow_dispatch: # Manual trigger with environment selection.
+    inputs:
+      environment:
+        description: 'Environment.'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  print-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Environment
+        run: echo "Running Print Environment  in:${{ inputs.environment }}"
