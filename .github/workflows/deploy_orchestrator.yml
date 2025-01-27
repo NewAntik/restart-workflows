@@ -18,6 +18,7 @@ on:
 
 jobs:
   deploy_to_dev:
+    # Runs when there is a push event or a manual trigger with 'dev' environment.
     if: ${{github.event_name == 'push' || inputs.environment == 'dev'}}
     uses: ./.github/workflows/deploy_to_dev.yml
     secrets: inherit
@@ -25,6 +26,7 @@ jobs:
       environment: 'Manual || Push Action = dev'
 
   deploy_to_prod:
+    # Runs only when it triggers manually with 'prod' environment.
     if: inputs.environment == 'prod'
     uses: ./.github/workflows/deploy_to_prod.yml
     secrets: inherit
