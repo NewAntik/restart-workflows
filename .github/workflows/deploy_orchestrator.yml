@@ -6,19 +6,28 @@ on:
       - main
 
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment.'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
 
 jobs:
   deploy_to_dev:
-    if: github.event_name == 'push'
+    if: ${{github.event_name == 'push' || inputs.environment == 'dev'}}
     uses: ./.github/workflows/deploy_to_dev.yml
     secrets: inherit
     with:
-      environment: 'push_action=dev'
+      environment: 'Manual || Push Action = dev'
 
   deploy_to_prod:
-    if: github.event_name == 'workflow_dispatch'
+    if: inputs.environment == 'prod'
     uses: ./.github/workflows/deploy_to_prod.yml
     secrets: inherit
     with:
-      environment: 'manual_trigger=prod'
+      environment: 'Manual triggered prod = prod'
 
