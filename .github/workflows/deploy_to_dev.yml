@@ -7,6 +7,8 @@ on:
         description: 'Environment'
         required: true
         type: 'string'
+env:
+  VAR_FROM_VARS: ${{vars.TEST_VAR}}
 
 jobs:
   deploy_to_dev:
@@ -15,4 +17,6 @@ jobs:
       name: ${{ inputs.environment }}
     steps:
       - name: Print Environment From Deploy to Dev
-        run: echo "Running Deploy to:${{ inputs.environment }}"
+        run: |
+         echo "Running Deploy to:${{ inputs.environment }}"
+         echo "Running Deploy with ENV: $VAR_FROM_VARS"
